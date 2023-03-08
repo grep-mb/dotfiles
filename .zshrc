@@ -94,7 +94,7 @@ source $ZSH/oh-my-zsh.sh
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-export PATH=/opt/homebrew/bin:/usr/local/opt/python/libexec/bin:/Users/mehdi/.poetry/bin:/usr/local/sbin:/opt/anaconda3/bin:/opt/anaconda3/condabin:/Users/mehdi/.rbenv/shims:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Library/TeX/texbin:/Library/Apple/usr/bin
+export PATH=/opt/homebrew/bin:/usr/local/opt/python/libexec/bin:/Users/mehdi/.poetry/bin:/usr/local/sbin:/opt/miniforge3/bin:/opt/miniforge3/condabin:/Users/mehdi/.rbenv/shims:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Library/TeX/texbin:/Library/Apple/usr/bin
 export PATH="/opt/homebrew/sbin:$PATH"
 export PATH="/opt/homebrew/opt/llvm/bin:$PATH"
 
@@ -118,7 +118,7 @@ fi
 # users are encouraged to define aliases within the ZSH_CUSTOM folder.
 # For a full list of active aliases, run `alias`.
 #
-# Example aliases
+# Aliases
 alias zshconfig="mate ~/.zshrc"
 alias ohmyzsh="mate ~/.oh-my-zsh"
 if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
@@ -127,7 +127,8 @@ alias dev="cd ~/dev"
 alias lsa="ls -1a"
 alias lsv="ls -1"
 alias vim="nvim"
-alias vi=="nvim"
+alias vi="nvim"
+alias ipython="python -m IPython"
 
 # Exporting installs in the /usr/local
 export PATH="/usr/local/sbin:$PATH"
@@ -139,23 +140,40 @@ export PATH="/usr/local/sbin:$PATH"
 export PATH="$HOME/.poetry/bin:$PATH"
 export PATH="/usr/local/opt/python/libexec/bin:$PATH"
 
-
 # Fixing issue with hombrew
 eval $(/opt/homebrew/bin/brew shellenv)
 
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+# __conda_setup="$('/opt/miniconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+# if [ $? -eq 0 ]; then
+#     # eval "$__conda_setup"
+# else
+    # if [ -f "/opt/miniconda3/etc/profile.d/conda.sh" ]; then
+    #     . "/opt/miniconda3/etc/profile.d/conda.sh"
+    # else
+#         export PATH="/opt/miniconda3/bin:$PATH"
+#     fi
+# fi
+# unset __conda_setup
+# <<< conda initialize <<<
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/opt/anaconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+__conda_setup="$('/opt/miniforge3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
 if [ $? -eq 0 ]; then
     eval "$__conda_setup"
 else
-    if [ -f "/opt/anaconda3/etc/profile.d/conda.sh" ]; then
-        . "/opt/anaconda3/etc/profile.d/conda.sh"
+    if [ -f "/opt/miniforge3/etc/profile.d/conda.sh" ]; then
+        . "/opt/miniforge3/etc/profile.d/conda.sh"
     else
-        export PATH="/opt/anaconda3/bin:$PATH"
+        export PATH="/opt/miniforge3/bin:$PATH"
     fi
 fi
 unset __conda_setup
 # <<< conda initialize <<<
+
+# Export API keys for local tools
+#export $(grep -v '^#' ~/dev/secrets/secrets | xargs -d '\n')
+export $(<~/.secrets)
 
