@@ -198,8 +198,18 @@ require('lazy').setup({
     dependencies={
       "nvim-lua/plenary.nvim",
       "MunifTanjim/nui.nvim",
-    }
+    },
+    opts = {
+      filesystem = {
+        filtered_items = {
+          visible = true, -- This is what you want: If you set this to `true`, all "hide" just mean "dimmed out"
+          hide_dotfiles = false,
+          hide_gitignored = true,
+        },
+      },
+    },
   },
+
 
   -- NOTE: Next Step on Your Neovim Journey: Add/Configure additional "plugins" for kickstart
   --       These are some example plugins that I've included in the kickstart repository.
