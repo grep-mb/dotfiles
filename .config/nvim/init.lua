@@ -123,6 +123,9 @@ require('lazy').setup({
   { -- Set lualine as statusline
     'nvim-lualine/lualine.nvim',
     -- See `:help lualine.txt`
+    dependencies = {
+      'kyazdani42/nvim-web-devicons'
+    },
     opts = {
       options = {
         icons_enabled = true,
@@ -130,8 +133,19 @@ require('lazy').setup({
         component_separators = '|',
         section_separators = '',
       },
+      -- sections = {
+      --   lualine_a = {
+      --     {
+      --       'filename',
+      --       file_status = true, -- displays file status (readonly status, modified status)
+      --       path = 2 -- 0 = just filename, 1 = relative path, 2 = absolute path
+      --     }
+      --   }
+      -- },
     },
   },
+  -- Set icons for lualine
+  {'kyazdani42/nvim-web-devicons'},
 
   { -- Add indentation guides even on blank lines
     'lukas-reineke/indent-blankline.nvim',
@@ -173,7 +187,19 @@ require('lazy').setup({
   },
 
   -- Install copilot
-  'github/copilot.vim', 
+  'github/copilot.vim',
+
+  -- Markdown previewer
+  'iamcco/markdown-preview.nvim',
+
+  --neotree
+  {
+    'nvim-neo-tree/neo-tree.nvim',
+    dependencies={
+      "nvim-lua/plenary.nvim",
+      "MunifTanjim/nui.nvim",
+    }
+  },
 
   -- NOTE: Next Step on Your Neovim Journey: Add/Configure additional "plugins" for kickstart
   --       These are some example plugins that I've included in the kickstart repository.
@@ -258,6 +284,14 @@ vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = tr
 -- Remap moving entire lines
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
 vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
+
+-- Launch neotree at startup
+vim.api.nvim_create_autocmd("VimEnter", {
+  command = "set nornu nonu | Neotree toggle",
+})
+vim.api.nvim_create_autocmd("BufEnter", {
+  command = "set rnu nu",
+})
 
 -- [[ Highlight on yank ]]
 -- See `:help vim.highlight.on_yank()`

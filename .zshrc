@@ -126,6 +126,7 @@ alias edit="open ~/.bash_profile"
 alias dev="cd ~/dev"
 alias lsa="ls -1a"
 alias lsv="ls -1"
+alias lst="tree -L 1"
 alias vim="nvim"
 alias vi="nvim"
 alias ipython="python -m IPython"
@@ -177,3 +178,4 @@ unset __conda_setup
 #export $(grep -v '^#' ~/dev/secrets/secrets | xargs -d '\n')
 export $(<~/.secrets)
 
+export PATH="/opt/homebrew/opt/openssl@1.1/bin:$PATH"
