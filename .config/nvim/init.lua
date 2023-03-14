@@ -296,12 +296,12 @@ vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
 vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
 
 -- Launch neotree at startup
-vim.api.nvim_create_autocmd("VimEnter", {
-  command = "set nornu nonu | Neotree toggle",
-})
-vim.api.nvim_create_autocmd("BufEnter", {
-  command = "set rnu nu",
-})
+-- vim.api.nvim_create_autocmd("VimEnter", {
+--   command = "set nornu nonu | Neotree toggle",
+-- })
+-- vim.api.nvim_create_autocmd("BufEnter", {
+--   command = "set rnu nu",
+-- })
 
 -- [[ Highlight on yank ]]
 -- See `:help vim.highlight.on_yank()`
