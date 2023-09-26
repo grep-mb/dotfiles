@@ -124,6 +124,9 @@ alias ohmyzsh="mate ~/.oh-my-zsh"
 if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
 alias edit="open ~/.bash_profile"
 alias dev="cd ~/dev"
+alias proj="cd ~/dev/projects"
+alias docs="cd ~/Documents"
+alias prez="cd ~/Documents/presentations"
 alias lsa="ls -1a"
 alias lsv="ls -1"
 alias lst="tree -L 1"
@@ -179,3 +182,50 @@ unset __conda_setup
 export $(<~/.secrets)
 
 export PATH="/opt/homebrew/opt/openssl@1.1/bin:$PATH"
+
+# Export cached tensorflow models
+export TFHUB_CACHE_DIR=$HOME/.cache/tfhub_modules
+
+# Exporting the path for protobuf
+export PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION=python
+[[ $commands[kubectl] ]] && source <(kubectl completion zsh)
+
+
+# Kubernetes alias
+alias kb=kubectl
+kb_jobs() {
+  kubectl get jobs -n kubeflow
+}
+kb_pods() {
+  kubectl get pods -n kubeflow
+}
+kb_logs() {
+  kubectl logs pod/$1 -f -n kubeflow
+}
+kb_describe() {
+  kubectl describe pod/$1 -n kubeflow
+}
+kb_nvidia_smi() {
+  kubectl -n kubeflow exec  $1 -it -- watch  -d -n 0.5 nvidia-smi
+}
+kb_bin_bash() {
+  kubectl -n kubeflow exec  $1 -it /bin/bash
+}
+kb_top() {
+  kubectl -n kubeflow exec  $1 -it top
+}
+kb_delete() {
+  kubectl delete pod/$1 -n kubeflow
+}
+
+# Print type aliases
+function print_type_aliases() {
+  alias | grep "$1"
+}
+
+
+## Exporting JAVA_HOMEexport JAVA_HOME=/Library/Java/JavaVirtualMachines/openjdk-17.jdk/Contents/Home
+export JAVA_HOME=/Library/Java/JavaVirtualMachines/openjdk-17.jdk/Contents/Home
+export PATH=$JAVA_HOME/bin:$PATH
+export JAVA_HOME=$(/usr/libexec/java_home)
+
