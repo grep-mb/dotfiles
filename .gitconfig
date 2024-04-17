@@ -18,14 +18,16 @@
 	edit-unmerged = "!f() { git ls-files --unmerged | cut -f2 | sort -u ; }; nvim `f`"
 	# add conflicted file on merge
 	add-unmerged = "!f() { git ls-files --unmerged | cut -f2 | sort -u ; }; git add `f`"
-	devtag = "!f() { TAG=$(git describe --abbrev=0 --tags); \
-                   COUNTER=1; \
-                   while git rev-parse $TAG.dev$COUNTER >/dev/null 2>&1; do \
-                     let COUNTER=COUNTER+1; \
-                   done; \
-                   git tag $TAG.dev$COUNTER; \
-                   git push origin $TAG.dev$COUNTER; \
-                 }; f"
+
+	devtag = "!f() { \
+		BASE_TAG=$(git describe --abbrev=0 --tags | sed -E 's/(.*)(\\.dev[0-9]+)$/\\1/'); \
+		COUNTER=1; \
+		while git rev-parse \"$BASE_TAG.dev$COUNTER\" >/dev/null 2>&1; do \
+			let COUNTER+=1; \
+		done; \
+		git tag \"$BASE_TAG.dev$COUNTER\"; \
+		git push origin \"$BASE_TAG.dev$COUNTER\"; \
+	}; f"
 	rename = "!f() { git branch -m $(git branch --show-current) \"$1\"; }; f"
 [hub]
 	protocol = https
